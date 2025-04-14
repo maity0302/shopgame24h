@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import {
   Facebook,
@@ -24,10 +25,10 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="text-sm">
-              <li><a href="#" className="hover:text-primary">Home</a></li>
-              <li><a href="#" className="hover:text-primary">Products</a></li>
-              <li><a href="#" className="hover:text-primary">About</a></li>
-              <li><a href="#" className="hover:text-primary">Contact</a></li>
+              <li><Link href="#" className="hover:text-primary">Home</Link></li>
+              <li><Link href="#" className="hover:text-primary">Products</Link></li>
+              <li><Link href="#" className="hover:text-primary">About</Link></li>
+              <li><Link href="#" className="hover:text-primary">Contact</Link></li>
             </ul>
           </div>
 
@@ -48,9 +49,9 @@ const Footer: React.FC = () => {
             &copy; {new Date().getFullYear()} Your Company. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-primary"><Facebook className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-primary"><Twitter className="h-5 w-5" /></a>
-            <a href="#" className="hover:text-primary"><Instagram className="h-5 w-5" /></a>
+            <Link href="#" className="hover:text-primary"><Facebook className="h-5 w-5" /></Link>
+            <Link href="#" className="hover:text-primary"><Twitter className="h-5 w-5" /></Link>
+            <Link href="#" className="hover:text-primary"><Instagram className="h-5 w-5" /></Link>
           </div>
         </div>
       </div>
