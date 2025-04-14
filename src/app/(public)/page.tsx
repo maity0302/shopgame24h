@@ -1,266 +1,77 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import { useState, useEffect } from 'react';
+import React from "react";
+import ProductCard from "@/components/ProductCard";
+
+// Dữ liệu sản phẩm
+const products = [
+	{
+		id: "1",
+		name: "Tài khoản Liên Quân 1 ád akd aks dkask dka dkask dkas kdak sdk",
+		price: 10,
+		game: "Liên Quân",
+		image: "https://picsum.photos/seed/lienquanmoi1/150",
+		title: "Liên Quân Account 1  ád akd aks dkask dka dkask dkas kdak sdk",
+		description: "A premium Liên Quân account with exclusive features.",
+	},
+	{
+		id: "2",
+		name: "Tài khoản Free Fire 2",
+		price: 15,
+		game: "Free Fire",
+		image: "https://picsum.photos/seed/freefire2/150",
+		title: "Free Fire Account 2",
+		description: "An advanced Free Fire account for competitive gaming.",
+	},
+	{
+		id: "3",
+		name: "Tài khoản PUBG 3",
+		price: 20,
+		game: "PUBG Mobile",
+		image: "https://picsum.photos/seed/pubg3/150",
+		title: "PUBG Mobile Account 3",
+		description: "A PUBG Mobile account with rare skins and items.",
+	},
+	{
+		id: "4",
+		name: "Tài khoản Võ Lâm 4",
+		price: 25,
+		game: "Võ Lâm Truyền Kỳ",
+		image: "https://picsum.photos/seed/volam4/150",
+		title: "Võ Lâm Account 4",
+		description: "A Võ Lâm Truyền Kỳ account with high-level characters.",
+	},
+	{
+		id: "5",
+		name: "Tài khoản Genshin 5",
+		price: 30,
+		game: "Genshin Impact",
+		image: "https://picsum.photos/seed/genshin5/150",
+		title: "Genshin Impact Account 5",
+		description: "A Genshin Impact account with rare characters and weapons.",
+	},
+	{
+		id: "6",
+		name: "Tài khoản Fifa Online 6",
+		price: 20,
+		game: "Fifa Online 4",
+		image: "https://picsum.photos/seed/fifaonline6/150",
+		title: "Fifa Online Account 6",
+		description: "A Fifa Online 4 account with top-tier players.",
+	},
+];
 
 export default function Page() {
-    const initialProducts = [
-        {
-            id: 1,
-            type: "acc",
-            price: 100000,
-            date: "2024-01-01",
-            game: "Liên Quân",
-            warranty: "7 ngày",
-        },
-        {
-            id: 2,
-            type: "acc",
-            price: 200000,
-            date: "2024-01-02",
-            game: "Free Fire",
-            warranty: "14 ngày",
-        },
-        {
-            id: 3,
-            type: "acc",
-            price: 300000,
-            date: "2024-01-03",
-            game: "Tốc Chiến",
-            warranty: "30 ngày",
-        },
-        {
-            id: 4,
-            type: "acc",
-            price: 400000,
-            date: "2024-01-04",
-            game: "Genshin Impact",
-            warranty: "60 ngày",
-        },
-        {
-            id: 5,
-            type: "acc",
-            price: 500000,
-            date: "2024-01-05",
-            game: "Valorant",
-            warranty: "90 ngày",
-        },
-        {
-            id: 6,
-            type: "acc",
-            price: 600000,
-            date: "2024-01-06",
-            game: "Among Us",
-            warranty: "120 ngày",
-        },
-        {
-            id: 7,
-            type: "acc",
-            price: 700000,
-            date: "2024-01-07",
-            game: "Roblox",
-            warranty: "30 ngày",
-        },
-        {
-            id: 8,
-            type: "acc",
-            price: 800000,
-            date: "2024-01-08",
-            game: "Minecraft",
-            warranty: "60 ngày",
-        },
-        {
-            id: 9,
-            type: "acc",
-            price: 900000,
-            date: "2024-01-09",
-            game: "Apex Legends",
-            warranty: "90 ngày",
-        },
-        {
-            id: 10,
-            type: "acc",
-            price: 1000000,
-            date: "2024-01-10",
-            game: "Call of Duty",
-            warranty: "120 ngày",
-        },
-        {
-            id: 11,
-            type: "acc",
-            price: 1100000,
-            date: "2024-01-11",
-            game: "League of Legends",
-            warranty: "7 ngày",
-        },
-        {
-            id: 12,
-            type: "acc",
-            price: 1200000,
-            date: "2024-01-12",
-            game: "Counter-Strike",
-            warranty: "14 ngày",
-        },
-        {
-            id: 13,
-            type: "acc",
-            price: 1300000,
-            date: "2024-01-13",
-            game: "Overwatch",
-            warranty: "30 ngày",
-        },
-        {
-            id: 14,
-            type: "acc",
-            price: 1400000,
-            date: "2024-01-14",
-            game: "Fortnite",
-            warranty: "60 ngày",
-        },
-        {
-            id: 15,
-            type: "acc",
-            price: 1500000,
-            date: "2024-01-15",
-            game: "PUBG",
-            warranty: "90 ngày",
-        }
-    ];
-
-    const [products, setProducts] = useState(initialProducts);
-    const [selectedGame, setSelectedGame] = useState<string | undefined>(undefined);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(5);
-
-    const uniqueGames = [...new Set(products.map((product) => product.game))];
-
-    useEffect(() => {
-        setSelectedGame(undefined);
-    }, []);
-
-    const filteredProducts = products.filter((product) => {
-        if (!selectedGame) {
-            return true; // Show all products if no games are selected
-        }
-        return selectedGame === product.game;
-    });
-
-    // Get current products
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-
-    // Change page
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(filteredProducts.length / productsPerPage); i++) {
-        pageNumbers.push(i);
-    }
-
-    const handleProductsPerPageChange = (value: number) => {
-        setProductsPerPage(Number(value));
-        setCurrentPage(1); // Reset to first page when products per page changes
-    };
-
-    return (
-        <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="flex justify-end items-center">
-    <Select
-        onValueChange={(value) => {
-            setSelectedGame(value);
-        }}
-    >
-        <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Chọn tựa game" />
-        </SelectTrigger>
-        <SelectContent>
-            {uniqueGames.map((game) => (
-                <SelectItem key={game} value={game}>
-                    {game}
-                </SelectItem>
-            ))}
-        </SelectContent>
-    </Select>
-</div>
-
-            <Table className="border">
-                <TableHeader className="bg-secondary text-secondary-foreground">
-                    <TableRow>
-                        <TableHead className="font-bold">Loại Acc</TableHead>
-                        <TableHead className="font-bold">Giá Tiền</TableHead>
-                        <TableHead className="font-bold">Ngày Đăng</TableHead>
-                        <TableHead className="font-bold">Tựa Game</TableHead>
-                        <TableHead className="font-bold">Bảo Hành</TableHead>
-                        <TableHead className="text-right font-bold">Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {currentProducts.map((product) => (
-                        <TableRow key={product.id}>
-                            <TableCell>{product.type}</TableCell>
-                            <TableCell>{product.price}</TableCell>
-                            <TableCell>{product.date}</TableCell>
-                            <TableCell>{product.game}</TableCell>
-                            <TableCell>{product.warranty}</TableCell>
-                            <TableCell className="text-right">
-                                <Button variant="ghost">Mua</Button>
-                                <Button variant="link">Xem chi tiết</Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-4">
-              <p>Trang {currentPage} / {pageNumbers.length}</p>
-                <Select
-                  onValueChange={(value) => {
-                    handleProductsPerPageChange(Number(value));
-                  }}
-                >
-                  <SelectTrigger className="w-[120px]">
-                    <SelectValue placeholder={`${productsPerPage} trên trang`} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="5">5 trên trang</SelectItem>
-                    <SelectItem value="10">10 trên trang</SelectItem>
-                    <SelectItem value="15">15 trên trang</SelectItem>
-                    <SelectItem value="20">20 trên trang</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                >
-                  Lùi
-                </Button>
-                <Button
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={currentPage === pageNumbers.length}
-                >
-                  Tiếp
-                </Button>
-              </div>
-            </div>
-          </div>
-    );
+	return (
+		<div className="theme-zinc w-full min-h-screen py-4 lg:py-6 xl:py-8">
+			<div className=" mx-auto px-4 lg:px-6 xl:px-8">
+				<h2 className="text-2xl font-bold mb-4">Mới nhất</h2>
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6">
+					{products.map((product) => (
+						<ProductCard key={product.id} product={product} />
+					))}
+				</div>
+			</div>
+		</div>
+	);
 }
