@@ -7,14 +7,13 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
+// Removed Avatar imports
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
 	const isLoggedIn = true;
+	const userImageUrl = "https://github.com/shadcn.png"; // Example image URL
 
 	return (
 		<header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4">
@@ -30,13 +29,20 @@ export default function Header() {
 			</div>
 			{isLoggedIn ? (
 				<DropdownMenu>
-					<DropdownMenuTrigger>
-						<Avatar>
-							<AvatarImage src="https://github.com/shadcn.png" />
-							<AvatarFallback>
-								<User />
-							</AvatarFallback>
-						</Avatar>
+					<DropdownMenuTrigger asChild>
+                        {/* Start HeroUI Avatar */}
+                        <button type="button" className="relative inline-flex items-center justify-center size-8 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            {userImageUrl ? (
+                                <img className="size-8 rounded-full object-cover" src={userImageUrl} alt="User avatar" />
+                            ) : (
+                                // Fallback using Lucide User icon or initials
+                                // Option 1: Lucide Icon (adjust styling as needed)
+                                // <User className="size-5 text-gray-500 dark:text-gray-400" />
+                                // Option 2: Initials (example)
+                                <span className="text-sm font-medium leading-none text-gray-700 dark:text-gray-200">SN</span>
+                            )}
+                        </button>
+                        {/* End HeroUI Avatar */}
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
 						<DropdownMenuLabel>Tài khoản</DropdownMenuLabel>
